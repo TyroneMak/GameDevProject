@@ -27,6 +27,8 @@ Gear REQUIRED
 Electricity REQUIRED  
   Gear uses electricity REQUIRED  
   Recharge on electricity at the base REQUIRED  
+Oxygen ADDITIONAL
+ Decreases on a global timer ADDITIONAL
 Zones REQUIRED  
   Each has 2 puzzles REQUIRED  
   Each has 1 gear slot REQUIRED  
