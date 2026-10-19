@@ -4,7 +4,7 @@
   Walk REQUIRED  
   Run REQUIRED  
   Jump REQUIRED  
-  Dodge Roll REQUIRED  
+  Dodge Roll ADDITIONAL  
 ## Interacting with small objects REQUIRED  
   Grabbing REQUIRED  
   Holding REQUIRED  
@@ -16,10 +16,10 @@
   Equipping gear REQUIRED  
   Using gear REQUIRED  
   Seeing gear in UI REQUIRED  
-  Stun Grenade REQUIRED  
+  Monster Stunning gear REQUIRED  
   + Stunning the monster REQUIRED  
   + Can be used in puzzles ADDITIONAL  
-    Booster REQUIRED  
+    Booster ADDITIONAL  
   + Physically moving the player forward ADDITIONAL  
   + Pushing large objects faster ADDITIONAL  
   + Breaking through walls ADDITIONAL  
