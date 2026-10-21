@@ -72,6 +72,12 @@ public class PlayerFlashlight : MonoBehaviour
     [Tooltip("Average seconds between short stutters (0 = never).")]
     public float stutterInterval = 0f;
 
+    [Header("Energy")]
+    [Tooltip("Energy drained per second while the torch is on (needs ElectricitySystem on the player).")]
+    public float energyPerSecond = 2f;
+    [Tooltip("Needs at least this much energy to switch on, so it doesn't flicker on/off while recharging from empty.")]
+    public float minEnergyToSwitchOn = 2f;
+
     [Header("Input & audio")]
     public Key toggleKey = Key.F;
     [Tooltip("Inventory item id of the torch. While it isn't the equipped hotbar item, the torch is put away and off.")]
@@ -90,6 +96,7 @@ public class PlayerFlashlight : MonoBehaviour
     Collider[] _ownColliders;
     float _retract;
     Inventory _inv;
+    ElectricitySystem _power;
     bool _wasHolding = true;
     Quaternion _lagRot;
     Material[] _glowMats;
@@ -100,6 +107,7 @@ public class PlayerFlashlight : MonoBehaviour
         if (aimCamera == null) aimCamera = GetComponentInChildren<Camera>();
         if (aimCamera == null) aimCamera = Camera.main;
         _noiseSeed = Random.value * 100f;
+        _power = GetComponent<ElectricitySystem>();
         _ownColliders = GetComponentsInChildren<Collider>(true);
 
         ApplySetup();
@@ -134,6 +142,11 @@ public class PlayerFlashlight : MonoBehaviour
             : new Renderer[0];
         SetModelVisible(_shown > 0.001f);
         BuildDot();
+    }
+
+    void OnDisable()
+    {
+        if (_power != null) _power.SetDrain(this, 0f);
     }
 
     /// <summary>Puts the hold on the camera, the model in the hand and the lights at the lens, with the beam settings applied.</summary>
@@ -232,6 +245,13 @@ public class PlayerFlashlight : MonoBehaviour
             else if (_inv != null) _inv.EquipById(inventoryItemId); // F takes the torch out if it's put away
         }
 
+        // Energy: the torch drains it while on, and cuts out when it runs dry.
+        if (_power != null)
+        {
+            if (IsOn && !_power.HasPower) SetOn(false);
+            _power.SetDrain(this, IsOn ? energyPerSecond : 0f);
+        }
+
         // Ramp brightness: quick fade-in like a real bulb, near-instant off.
         float target = IsOn ? 1f : 0f;
         float speed = IsOn ? 1f / Mathf.Max(0.001f, switchOnTime) : 50f;
@@ -326,6 +346,7 @@ public class PlayerFlashlight : MonoBehaviour
     public void SetOn(bool on)
     {
         if (IsOn == on) return;
+        if (on && _power != null && _power.Current < minEnergyToSwitchOn) return; // not enough energy
         IsOn = on;
         var clip = on ? clickOn : clickOff;
         if (audioSource != null && clip != null) audioSource.PlayOneShot(clip);
