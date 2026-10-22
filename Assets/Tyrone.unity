@@ -249,9 +249,9 @@ GameObject:
   - component: {fileID: 425345392}
   - component: {fileID: 425345391}
   - component: {fileID: 425345390}
-  - component: {fileID: 425345389}
   - component: {fileID: 425345388}
   - component: {fileID: 425345387}
+  - component: {fileID: 425345393}
   m_Layer: 0
   m_Name: Test Player
   m_TagString: Untagged
@@ -273,8 +273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 0
   Player: {fileID: 926324380}
-  direction: {x: 0, y: 0, z: 0}
-  speed: -5
+  leashDistance: 10
+  chaseThreshold: 25
 --- !u!54 &425345388
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -300,29 +300,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
---- !u!135 &425345389
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425345386}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &425345390
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -372,7 +351,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425345386}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &425345392
 Transform:
   m_ObjectHideFlags: 0
@@ -381,13 +360,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425345386}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9545292, y: 3.8791454, z: 0.70435643}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &425345393
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425345386}
+  m_Material: {fileID: 13400000, guid: 6aadbbd9475611c86896a08a79e23769, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &509871035
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +414,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509871035}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6aadbbd9475611c86896a08a79e23769, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -505,7 +505,6 @@ GameObject:
   - component: {fileID: 926324380}
   - component: {fileID: 926324379}
   - component: {fileID: 926324378}
-  - component: {fileID: 926324377}
   - component: {fileID: 926324376}
   - component: {fileID: 926324375}
   - component: {fileID: 926324381}
@@ -530,8 +529,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 0
   Player: {fileID: 425345392}
-  direction: {x: 0, y: 0, z: 0}
-  speed: 5
+  leashDistance: 10
+  chaseThreshold: 25
 --- !u!54 &926324376
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -557,31 +556,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 32
   m_CollisionDetection: 0
---- !u!136 &926324377
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 926324374}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &926324378
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -641,20 +617,20 @@ Transform:
   m_GameObject: {fileID: 926324374}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &926324381
-SphereCollider:
+--- !u!65 &926324381
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 926324374}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6aadbbd9475611c86896a08a79e23769, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -666,7 +642,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1816252786
 GameObject:

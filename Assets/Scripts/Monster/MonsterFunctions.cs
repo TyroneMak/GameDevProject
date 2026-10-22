@@ -6,17 +6,22 @@ public class MonsterFunctions : MonoBehaviour
 {
     public float distance;
     public Transform Player;
-    public Vector3 direction;
-    public float speed = 5;
-    public bool isDetected = false;
-    public bool isStunned = false;
-    public int count = 0;
+    Vector3 direction;
+    float speed = 5;
+    bool isDetected = false;
+    bool isStunned = false;
+    int count = 0;
+    Vector3 startPosition;
+    public int leashDistance = 20;
+    public int chaseThreshold = 25;
     Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        // in Start
+        startPosition = this.transform.position;
     }
 
     // Update is called once per frame
@@ -25,26 +30,29 @@ public class MonsterFunctions : MonoBehaviour
         if(!isStunned)
         {
             distance = Vector3.Distance(this.transform.position, Player.position);
-            if(distance < 10)
+            if(distance <= 10)
             {
                 isDetected = true;
                 count=0;
             }
             
-
-            if(isDetected)
+            //This is the check for if the object is still within the test room
+            if(isDetected && (Vector3.Distance(this.transform.position, startPosition)<=leashDistance))
             {
                 count++;
                 direction = (Player.position + this.transform.position).normalized;
                 rb.AddForce ( direction * speed);
-                if(count > 100)
+                if(count > chaseThreshold)
                 {
                     isDetected = false;
                 }
             }
             else
             {
-
+                this.transform.position = startPosition;
+                this.transform.rotation = Quaternion.identity;
+                rb.velocity = Vector3.zero;
+                isDetected = false;
             }
         }
         else
