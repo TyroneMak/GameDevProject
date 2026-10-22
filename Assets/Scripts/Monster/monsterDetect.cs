@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class monsterDetect : MonoBehaviour
+{
+    public float distance;
+    public Transform Player;
+    public Vector3 direction;
+    public float speed = 5;
+    public bool isDetected = false;
+    public int count = 0;
+    Rigidbody rb;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        distance = Vector3.Distance(this.transform.position, Player.position);
+        if(distance < 10)
+        {
+            isDetected = true;
+            count=0;
+        }
+        
+
+        if(isDetected)
+        {
+            count++;
+            direction = (Player.position + this.transform.position).normalized;
+            rb.AddForce ( direction * speed);
+            if(count > 100)
+            {
+                isDetected = false;
+            }
+        }
+        else
+        {
+
+        }
+    }
+}
