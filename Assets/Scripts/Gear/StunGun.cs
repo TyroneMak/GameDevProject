@@ -54,7 +54,7 @@ public class StunGun : MonoBehaviour
         if (Physics.Raycast(ray, out hit)){
             if (hit.transform.tag == "Enemy" || hit.transform.tag == "Ground")
             {
-                hit.transform.GetComponent<MonsterFunctions>().TakeDamage();
+                hit.transform.GetComponent<MonsterFunctions>().StunEffect();
                 Debug.Log("Enemy/Ground stunned");
             }
             else{
