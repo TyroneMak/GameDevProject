@@ -1318,17 +1318,14 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1070870122}
   m_SourcePrefab: {fileID: 100100000, guid: e4a50da6a941abc49a34d30ca8143083, type: 3}
-<<<<<<< Updated upstream
 --- !u!1 &709323537 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5823170437803207173, guid: be1af74aee30a414faa2d7056107918a, type: 3}
   m_PrefabInstance: {fileID: 1859464318}
-=======
 --- !u!4 &679785749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5199864579091446906, guid: e4a50da6a941abc49a34d30ca8143083, type: 3}
   m_PrefabInstance: {fileID: 679785748}
->>>>>>> Stashed changes
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &727354685
 GameObject:
@@ -1714,7 +1711,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be1af74aee30a414faa2d7056107918a, type: 3}
-<<<<<<< Updated upstream
 --- !u!1 &884904100 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1941386308441695588, guid: e4a50da6a941abc49a34d30ca8143083, type: 3}
@@ -1751,12 +1747,10 @@ Rigidbody:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1941386308441695588, guid: e4a50da6a941abc49a34d30ca8143083, type: 3}
   m_PrefabInstance: {fileID: 1539156042}
-=======
 --- !u!4 &866945359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1023661027350239802, guid: be1af74aee30a414faa2d7056107918a, type: 3}
   m_PrefabInstance: {fileID: 866945358}
->>>>>>> Stashed changes
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &972002116
 GameObject:
