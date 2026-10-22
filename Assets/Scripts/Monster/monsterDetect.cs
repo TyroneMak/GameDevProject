@@ -9,6 +9,7 @@ public class monsterDetect : MonoBehaviour
     public Vector3 direction;
     public float speed = 5;
     public bool isDetected = false;
+    public bool isStunned = false;
     public int count = 0;
     Rigidbody rb;
 
@@ -21,27 +22,45 @@ public class monsterDetect : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        distance = Vector3.Distance(this.transform.position, Player.position);
-        if(distance < 10)
+        if(!isStunned)
         {
-            isDetected = true;
-            count=0;
-        }
-        
-
-        if(isDetected)
-        {
-            count++;
-            direction = (Player.position + this.transform.position).normalized;
-            rb.AddForce ( direction * speed);
-            if(count > 100)
+            distance = Vector3.Distance(this.transform.position, Player.position);
+            if(distance < 10)
             {
-                isDetected = false;
+                isDetected = true;
+                count=0;
+            }
+            
+
+            if(isDetected)
+            {
+                count++;
+                direction = (Player.position + this.transform.position).normalized;
+                rb.AddForce ( direction * speed);
+                if(count > 100)
+                {
+                    isDetected = false;
+                }
+            }
+            else
+            {
+
             }
         }
         else
         {
-
+            count++;
+            if(count > 10)
+            {
+                isStunned = false;
+            }
         }
+    }
+    void stunEffect()
+    {
+        rb.velocity = Vector3.zero;
+        count = 0;
+        isDetected = false;
+        isStunned= true;
     }
 }
