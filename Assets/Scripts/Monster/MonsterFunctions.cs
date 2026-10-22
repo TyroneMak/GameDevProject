@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class monsterDetect : MonoBehaviour
+public class MonsterFunctions : MonoBehaviour
 {
     public float distance;
     public Transform Player;
@@ -56,7 +56,7 @@ public class monsterDetect : MonoBehaviour
             }
         }
     }
-    void stunEffect()
+    void StunEffect()
     {
         rb.velocity = Vector3.zero;
         count = 0;
