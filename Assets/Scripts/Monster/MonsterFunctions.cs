@@ -64,7 +64,7 @@ public class MonsterFunctions : MonoBehaviour
             }
         }
     }
-    void StunEffect()
+    public void StunEffect()
     {
         rb.velocity = Vector3.zero;
         count = 0;

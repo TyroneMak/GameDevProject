@@ -15,4 +15,8 @@ public class Open : MonoBehaviour
     {
         
     }
+    public void open()
+    {
+        Debug.Log("open");
+    }
 }
