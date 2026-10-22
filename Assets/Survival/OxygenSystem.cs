@@ -109,7 +109,7 @@ public class OxygenSystem : MonoBehaviour
 
     bool InAnyZone()
     {
-        foreach (var z in OxygenZone.Active)
+        foreach (var z in ChargingZone.Active)
             if (z.isActiveAndEnabled && z.Contains(transform.position)) return true;
         return false;
     }

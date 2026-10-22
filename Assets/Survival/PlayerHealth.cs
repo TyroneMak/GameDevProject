@@ -92,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
         // Heal in zones that restore health (the ship's blue circle).
         IsHealing = false;
         if (zoneHealPerSecond > 0f && Current < maxHealth)
-            foreach (var z in OxygenZone.Active)
+            foreach (var z in ChargingZone.Active)
                 if (z != null && z.restoresHealth && z.isActiveAndEnabled && z.Contains(transform.position))
                 {
                     Current = Mathf.Min(maxHealth, Current + zoneHealPerSecond * Time.deltaTime);

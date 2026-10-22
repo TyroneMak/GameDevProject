@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A circular area that refills the player's oxygen. Drawn in the game as a blue outline
+/// A circular area that recharges the player's energy (gadgets). Drawn in the game as a yellow outline
 /// (plus an optional faint fill) that hugs the ground. Change Radius in the Inspector or drag
 /// the object to move it; the circle updates live in the editor.
 /// </summary>
 [ExecuteAlways]
-public class OxygenZone : MonoBehaviour
+public class ChargingZone : MonoBehaviour
 {
-    public static readonly List<OxygenZone> Active = new List<OxygenZone>();
+    public static readonly List<ChargingZone> Active = new List<ChargingZone>();
 
     [Header("Area")]
     [Min(0.01f)] public float radius = 1.5f;
@@ -19,10 +19,10 @@ public class OxygenZone : MonoBehaviour
     public bool restoresHealth;
 
     [Header("Look")]
-    public Color outlineColor = new Color(0.2f, 0.6f, 1f, 1f);
+    public Color outlineColor = new Color(1f, 0.85f, 0.2f, 1f);
     public float outlineWidth = 0.03f;
     [Tooltip("Faint fill inside the circle. Set alpha to 0 for outline only.")]
-    public Color fillColor = new Color(0.2f, 0.6f, 1f, 0.12f);
+    public Color fillColor = new Color(1f, 0.85f, 0.2f, 0.12f);
     [Range(16, 256)] public int segments = 96;
     [Tooltip("Project the circle onto the ground below it so it follows uneven terrain.")]
     public bool followGround = true;
@@ -150,7 +150,7 @@ public class OxygenZone : MonoBehaviour
 
         if (_line == null)
         {
-            var go = new GameObject("OxygenZone Outline") { hideFlags = HideFlags.HideAndDontSave };
+            var go = new GameObject("ChargingZone Outline") { hideFlags = HideFlags.HideAndDontSave };
             _line = go.AddComponent<LineRenderer>();
             _line.loop = true;
             _line.useWorldSpace = true;
@@ -165,9 +165,9 @@ public class OxygenZone : MonoBehaviour
 
         if (_fill == null)
         {
-            var go = new GameObject("OxygenZone Fill") { hideFlags = HideFlags.HideAndDontSave };
+            var go = new GameObject("ChargingZone Fill") { hideFlags = HideFlags.HideAndDontSave };
             _fill = go.AddComponent<MeshFilter>();
-            _fill.sharedMesh = new Mesh { name = "OxygenZoneFill", hideFlags = HideFlags.HideAndDontSave };
+            _fill.sharedMesh = new Mesh { name = "ChargingZoneFill", hideFlags = HideFlags.HideAndDontSave };
             var mr = go.AddComponent<MeshRenderer>();
             mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             mr.receiveShadows = false;

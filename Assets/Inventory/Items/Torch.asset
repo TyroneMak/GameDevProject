@@ -19,5 +19,7 @@ MonoBehaviour:
   collectable: 0
   unlocksHotbarSlots: 0
   showCrosshair: 0
-  iconStyle: 2
+  consumable: 0
+  oxygenBoostSeconds: 0
+  iconStyle: 0
   iconColor: {r: 1, g: 0.92, b: 0.6, a: 1}
