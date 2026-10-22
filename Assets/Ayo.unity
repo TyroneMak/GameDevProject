@@ -225,6 +225,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25520802}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &50535187 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5823170437803207173, guid: be1af74aee30a414faa2d7056107918a, type: 3}
+  m_PrefabInstance: {fileID: 866945358}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &83662236
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +613,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 133328468}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &152183681 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5823170437803207173, guid: be1af74aee30a414faa2d7056107918a, type: 3}
+  m_PrefabInstance: {fileID: 247501546}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &247501546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1287,6 +1297,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1070870122}
   m_SourcePrefab: {fileID: 100100000, guid: e4a50da6a941abc49a34d30ca8143083, type: 3}
+--- !u!1 &709323537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5823170437803207173, guid: be1af74aee30a414faa2d7056107918a, type: 3}
+  m_PrefabInstance: {fileID: 1859464318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &727354685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2938,6 +2953,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2170120729568431320, guid: a7044f5ca4ffe8c46aa0e6d6fa89da42, type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 709323537}
     - target: {fileID: 7261298941541187092, guid: a7044f5ca4ffe8c46aa0e6d6fa89da42, type: 3}
       propertyPath: m_Name
       value: PuzzleBox
@@ -3464,6 +3483,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2170120729568431320, guid: a7044f5ca4ffe8c46aa0e6d6fa89da42, type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 152183681}
     - target: {fileID: 7261298941541187092, guid: a7044f5ca4ffe8c46aa0e6d6fa89da42, type: 3}
       propertyPath: m_Name
       value: PuzzleBox (1)
@@ -3793,6 +3816,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2170120729568431320, guid: a7044f5ca4ffe8c46aa0e6d6fa89da42, type: 3}
+      propertyPath: Chest
+      value: 
+      objectReference: {fileID: 50535187}
     - target: {fileID: 7261298941541187092, guid: a7044f5ca4ffe8c46aa0e6d6fa89da42, type: 3}
       propertyPath: m_Name
       value: PuzzleBox (2)
