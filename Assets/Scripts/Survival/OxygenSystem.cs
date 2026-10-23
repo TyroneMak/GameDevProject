@@ -14,7 +14,7 @@ public class OxygenSystem : MonoBehaviour
     [Header("Oxygen")]
     public float maxOxygen = 100f;
     [Tooltip("Seconds a full tank lasts outside a refill zone.")]
-    public float fullTankSeconds = 180f;
+    public float fullTankSeconds = 120f;
     [Tooltip("Oxygen gained per second inside a refill zone.")]
     public float refillPerSecond = 30f;
     [Tooltip("Drain multiplier while sprinting (needs StaminaSystem on the player). 1 = no extra drain.")]
