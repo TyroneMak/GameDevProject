@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1649,7 +1649,11 @@ PrefabInstance:
     - target: {fileID: 7793641961837462094, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
       propertyPath: Player
       value: 
-      objectReference: {fileID: 1235359601}
+      objectReference: {fileID: 1235359581}
+    - target: {fileID: 7793641961837462094, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
+      propertyPath: leashDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8772765883553554753, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
@@ -3789,7 +3793,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352546522}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6aadbbd9475611c86896a08a79e23769, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4087,6 +4091,14 @@ PrefabInstance:
     - target: {fileID: 5826942801100434650, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
       propertyPath: m_Name
       value: Monster
+      objectReference: {fileID: 0}
+    - target: {fileID: 7793641961837462094, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1235359581}
+    - target: {fileID: 7793641961837462094, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
+      propertyPath: leashDistance
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8772765883553554753, guid: 7223daa00ccc5b84a86d56f890010239, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5837,7 +5849,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956336655}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6aadbbd9475611c86896a08a79e23769, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

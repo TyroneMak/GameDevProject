@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterFunctions : MonoBehaviour
 {
     public float distance;
-    public Transform Player;
+    public GameObject Player;
     Vector3 direction;
     float speed = 5;
     bool isDetected = false;
@@ -15,6 +15,7 @@ public class MonsterFunctions : MonoBehaviour
     public int leashDistance = 20;
     public int chaseThreshold = 25;
     Rigidbody rb;
+    int damageCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,18 +30,27 @@ public class MonsterFunctions : MonoBehaviour
     {
         if(!isStunned)
         {
-            distance = Vector3.Distance(this.transform.position, Player.position);
-            if(distance <= 10)
+            distance = Vector3.Distance(this.transform.position, Player.transform.position);
+            if(distance <= 15)
             {
                 isDetected = true;
                 count=0;
+                if(distance <= 3)
+                {
+                    damageCount++;
+                    if(damageCount > 50)
+                    {
+                        Player.GetComponent<HealthBarUI>().health.TakeDamage(2f);
+                        damageCount = 0;
+                    }
+                }
             }
             
             //This is the check for if the object is still within the test room
             if(isDetected && (Vector3.Distance(this.transform.position, startPosition)<=leashDistance))
             {
                 count++;
-                direction = (Player.position + this.transform.position).normalized;
+                direction = (Player.transform.position - this.transform.position).normalized;
                 rb.AddForce ( direction * speed);
                 if(count > chaseThreshold)
                 {

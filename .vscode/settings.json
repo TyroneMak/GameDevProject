@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "IntroGame.sln"
+    "dotnet.defaultSolution": "GameDevProject.sln"
 }
