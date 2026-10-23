@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1579f08d0a5e4bacbccbb3e1bcbcb29, type: 3}
-  m_Name: OxygenBoost
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
-  id: oxygen_boost
-  displayName: Oxygen Boost
-  description: 'Press its slot number to use: refills your oxygen and stops it draining
-    for 2 minutes.'
+  m_Name: Ball
+  m_EditorClassIdentifier: 
+  id: ball
+  displayName: Item
+  description: 'balls which can be thrown
+
+'
   collectable: 0
-  unlocksHotbarSlots: 2
+  unlocksHotbarSlots: 0
   showCrosshair: 0
-  consumable: 1
-  oxygenBoostSeconds: 120
-  iconStyle: 3
-  iconColor: {r: 0.35, g: 0.75, b: 1, a: 1}
+  consumable: 0
+  oxygenBoostSeconds: 0
+  iconStyle: 1
+  iconColor: {r: 0.9716981, g: 0.24292453, b: 0.24292453, a: 1}

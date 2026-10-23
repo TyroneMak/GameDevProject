@@ -221,7 +221,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1164398573247666681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75d1c61e0c3215c119bc3565774f5d23, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b00918c3c1f1884da0d4b9a9ae922d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Chest: {fileID: 0}
@@ -577,6 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1038760251937035299}
   - component: {fileID: 9047000530822624892}
+  - component: {fileID: 3469734557730856888}
   m_Layer: 0
   m_Name: PuzzleBox
   m_TagString: Untagged
@@ -594,7 +595,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1580293821491899337}
@@ -631,3 +632,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3469734557730856888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7261298941541187092}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b00918c3c1f1884da0d4b9a9ae922d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Chest: {fileID: 0}
