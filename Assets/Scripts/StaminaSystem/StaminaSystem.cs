@@ -1,6 +1,7 @@
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 /// <summary>
 /// Drains stamina while sprinting, regenerates it otherwise, and blocks sprinting at zero.
@@ -32,6 +33,8 @@ public class StaminaSystem : MonoBehaviour
     public float Normalized => maxStamina > 0f ? Current / maxStamina : 0f;
     public bool IsExhausted { get; private set; }
     public bool IsSprinting { get; private set; }
+
+    public Text stamina;
 
     StarterAssetsInputs _input;
     float _regenTimer;
@@ -78,5 +81,6 @@ public class StaminaSystem : MonoBehaviour
                 onRecovered?.Invoke();
             }
         }
+        stamina.text = Current.ToString("F0");
     }
 }

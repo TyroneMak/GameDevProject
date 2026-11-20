@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Global oxygen timer. Oxygen drains while the player is outside every OxygenZone, refills inside one,
@@ -41,6 +42,8 @@ public class OxygenSystem : MonoBehaviour
 
     StaminaSystem _stamina;
     bool _warnedLow;
+
+    public Text oxygen;
 
     void Awake()
     {
@@ -105,6 +108,8 @@ public class OxygenSystem : MonoBehaviour
         }
 
         if (Current <= 0f) Fail();
+
+        oxygen.text = Current.ToString("F0");
     }
 
     bool InAnyZone()

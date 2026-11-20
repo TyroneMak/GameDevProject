@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Player health. Damage knocks the player back a little; at 0 the player dies and R restarts.
@@ -44,15 +45,20 @@ public class PlayerHealth : MonoBehaviour
     bool _wasGrounded = true;
     float _fallPeakY;
     float _ignoreFallUntil;
+    public Text health;
 
     void Awake()
     {
-        Current = maxHealth;
+        Current = 100;
         _cc = GetComponent<CharacterController>();
         _tpc = GetComponent<ThirdPersonController>();
         _fpc = GetComponent<FirstPersonController>();
         _fallPeakY = transform.position.y;
         _ignoreFallUntil = Time.time + 1f; // don't count settling onto the ground at spawn
+    }
+
+    void Start(){
+        TakeDamage(75f, Vector3.zero);
     }
 
     public void TakeDamage(float amount, Vector3 knockbackVelocity = default)
@@ -99,6 +105,7 @@ public class PlayerHealth : MonoBehaviour
                     IsHealing = true;
                     break;
                 }
+        health.text = Current.ToString("F0");
     }
 
     void LateUpdate()

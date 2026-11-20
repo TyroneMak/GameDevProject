@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 /// <summary>
 /// Global energy for gadgets. Gadgets spend energy (one-off with TryUse, continuous with SetDrain).
@@ -32,6 +33,8 @@ public class ElectricitySystem : MonoBehaviour
     readonly Dictionary<Object, float> _drains = new Dictionary<Object, float>();
     bool _warnedLow, _wasEmpty;
 
+    public Text electricity;
+
     void Awake() => Current = maxEnergy;
 
     /// <summary>One-off cost (e.g. a camera flash). Returns false and spends nothing if there isn't enough.</summary>
@@ -52,7 +55,10 @@ public class ElectricitySystem : MonoBehaviour
         else _drains[source] = perSecond;
     }
 
-    public void AddEnergy(float amount) => Current = Mathf.Clamp(Current + amount, 0f, maxEnergy);
+    public void AddEnergy(float amount)
+    {
+        Current = Mathf.Clamp(Current + amount, 0f, maxEnergy);
+    }
 
     void Update()
     {
@@ -77,6 +83,7 @@ public class ElectricitySystem : MonoBehaviour
         bool empty = !HasPower;
         if (empty && !_wasEmpty) onEmpty?.Invoke();
         _wasEmpty = empty;
+        electricity.text = Current.ToString("F0");
     }
 
     bool InAnyZone()
@@ -87,7 +94,6 @@ public class ElectricitySystem : MonoBehaviour
         if (chargeInOxygenZones)
             foreach (var z in ChargingZone.Active)
                 if (z.isActiveAndEnabled && z.Contains(transform.position)) return true;
-
         return false;
     }
 }
