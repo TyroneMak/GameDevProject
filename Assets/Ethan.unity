@@ -543,6 +543,8 @@ GameObject:
   - component: {fileID: 280334693}
   - component: {fileID: 280334710}
   - component: {fileID: 280334709}
+  - component: {fileID: 280334711}
+  - component: {fileID: 280334712}
   m_Layer: 0
   m_Name: SimplePlayer
   m_TagString: Player
@@ -808,7 +810,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280334692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 831338e735d0148b592399dc009f57ff, type: 3}
   m_Name: 
@@ -854,7 +856,7 @@ Transform:
   m_GameObject: {fileID: 280334692}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -884,10 +886,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &280334710
 MonoBehaviour:
@@ -909,7 +911,58 @@ MonoBehaviour:
   viewCam: {fileID: 1751225266}
   theRB: {fileID: 280334709}
   moveSpeed: 5
+  sprintSpeed: 5
+  walkSpeed: 3
   mouseSensitivity: 0.1
+  buffer: 0.5
+  isGrounded: 0
+  isSprinting: 0
+--- !u!136 &280334711
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280334692}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &280334712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 280334692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a321a3e8b2407ac4d9e8e4754a07c158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentOxygen: 0
+  currentElectricity: 0
+  currentHealth: 0
+  currentStamina: 0
+  maxUniversal: 100
+  sprintDrainMultiplier: 1.5
+  delay: 1.5
+  healthTxt: {fileID: 853710209}
+  oxygenTxt: {fileID: 1799103204}
+  electricityTxt: {fileID: 1367706534}
+  staminaTxt: {fileID: 1034209302}
 --- !u!1 &307284269
 GameObject:
   m_ObjectHideFlags: 0

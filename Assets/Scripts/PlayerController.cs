@@ -19,13 +19,19 @@ public class PlayerController : MonoBehaviour
     private Vector2 mouseInput;
     public Camera viewCam;
     public Rigidbody theRB;
-    public float moveSpeed = 3f;
+
+    public float moveSpeed;
+    public float sprintSpeed = 5f;
+    public float walkSpeed = 3f;
     public float mouseSensitivity = 0.1f;
 
     public float buffer = 0.5f;
-    private float last = 0f;
+    private float lastJump;
+    private float lastSprint;
     public bool isGrounded;
+    private bool jumpPressed;
     public bool isSprinting;
+    private float absMin = 0.01f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +39,8 @@ public class PlayerController : MonoBehaviour
         instance = this;
         isGrounded = false;
         isSprinting = false;
+        lastJump = 0f;
+        lastSprint = 0f;
     }
 
     // Update is called once per frame
@@ -45,9 +53,12 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
         viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f)); 
 
-        Debug.Log(theRB.velocity.y);
-    }
+        //Debug.Log(theRB.velocity.y);
 
+        if (playerJump.action.WasPressedThisFrame()){
+           jumpPressed = true;
+        }
+    }
 
     // fixed rate (50 per sec) 
     // for physics so isnt tied to framerate (e.g. fallout 4)
@@ -65,29 +76,34 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Sprint(){
-        if (playerSprint.action.IsPressed() /*&& PlayerInformation.instance.stamina > 0*/){
-            moveSpeed = 5f;
-            isSprinting = true;
-            // PlayerInformation.instance.stamina
+        if (playerSprint.action.IsPressed() && PlayerInformation.instance.currentStamina >= 0){
+            moveSpeed = sprintSpeed;
+            if (Math.Abs(theRB.velocity.x) > absMin || Math.Abs(theRB.velocity.z) > absMin){
+                isSprinting = true;
+            }
+            else{
+                isSprinting = false;
+            }
         }
         else{
-            moveSpeed = 3f;
+            moveSpeed = walkSpeed;
             isSprinting = false;
         }
     }
 
     public void Jump(){
-        if (!isGrounded && Math.Abs(theRB.velocity.y) < 0.01f && Time.time - last > buffer){
+        if (!isGrounded && Math.Abs(theRB.velocity.y) < absMin  && Time.time - lastJump > buffer){
             isGrounded = true;
         }
-        else if (isGrounded && playerJump.action.WasPressedThisFrame()){
+        else if (isGrounded && jumpPressed){
             Vector3 tempJump = theRB.velocity;
             tempJump.y = 5f;
             theRB.velocity = tempJump;
             isGrounded = false;
-            last = Time.time;
-            // PlayerInformation.instance.stamina -= 3;
-            // PlayerInformation.instance.oxygen --;
+            lastJump = Time.time;
+            PlayerInformation.instance.StaminaChange(-3);
+            //PlayerInformation.instance.OxygenChange(-1);
         }
+        jumpPressed = false;
     }
 }
