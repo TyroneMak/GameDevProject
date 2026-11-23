@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     public float buffer = 0.5f;
     private float lastJump;
-    private float lastSprint;
     public bool isGrounded;
     private bool jumpPressed;
     public bool isSprinting;
@@ -40,7 +39,6 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
         isSprinting = false;
         lastJump = 0f;
-        lastSprint = 0f;
     }
 
     // Update is called once per frame
