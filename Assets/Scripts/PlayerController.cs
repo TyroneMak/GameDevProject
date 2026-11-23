@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 0.1f;
 
     public float buffer = 0.5f;
-    public float last = 0f;
+    private float last = 0f;
     public bool isGrounded;
     public bool isSprinting;
 
@@ -38,15 +38,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerSprint.action.IsPressed() /*&& PlayerInformation.instance.stamina > 0*/){
-            moveSpeed = 5f;
-            isSprinting = true;
-        }
-        else{
-            moveSpeed = 3f;
-            isSprinting = false;
-        }
+        Sprint();
 
+        //player view
+        mouseInput = new Vector2(playerLook.action.ReadValue<Vector2>().x, playerLook.action.ReadValue<Vector2>().y) * mouseSensitivity;
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
+        viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f)); 
+
+        Debug.Log(theRB.velocity.y);
+    }
+
+
+    // fixed rate (50 per sec) 
+    // for physics so isnt tied to framerate (e.g. fallout 4)
+    void FixedUpdate()
+    {
         //player movement
         Vector2 move = playerMove.action.ReadValue<Vector2>();
         Vector3 direction = (transform.forward * move.y + transform.right * move.x) * moveSpeed;
@@ -55,13 +61,22 @@ public class PlayerController : MonoBehaviour
         tempMove.z = direction.z;
         theRB.velocity = tempMove;
 
-        //player view
-        mouseInput = new Vector2(playerLook.action.ReadValue<Vector2>().x, playerLook.action.ReadValue<Vector2>().y) * mouseSensitivity;
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + mouseInput.x, transform.rotation.eulerAngles.z);
-        viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(-mouseInput.y, 0f, 0f)); 
+        Jump();
+    }
 
-        Debug.Log(theRB.velocity.y);
+    public void Sprint(){
+        if (playerSprint.action.IsPressed() /*&& PlayerInformation.instance.stamina > 0*/){
+            moveSpeed = 5f;
+            isSprinting = true;
+            // PlayerInformation.instance.stamina
+        }
+        else{
+            moveSpeed = 3f;
+            isSprinting = false;
+        }
+    }
 
+    public void Jump(){
         if (!isGrounded && Math.Abs(theRB.velocity.y) < 0.01f && Time.time - last > buffer){
             isGrounded = true;
         }

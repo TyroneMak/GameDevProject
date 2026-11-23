@@ -13,7 +13,6 @@ public class PlayerInformation : MonoBehaviour
     public float currentHealth;
     public float  currentStamina;
     public float maxUniversal = 100f;
-    public float tickRate = 0f;
     public float sprintDrainMultiplier = 1.5f;
 
     public Text healthTxt, oxygenTxt, electricityTxt, staminaTxt;
@@ -34,16 +33,28 @@ public class PlayerInformation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - tickRate > 1){
-            setOxygen(1f);
-        }
+
     }
 
-    public void setOxygen(float decrease){
-        currentOxygen -= decrease;
+    // fixed rate
+    void FixedUpdate()
+    {
+        
     }
 
-    public void setOxygen(float decrease, float multiplier){
-        currentOxygen -= decrease;
+    public void OxygenChange(float change){
+        currentOxygen += change;
+    }
+
+    public void StaminaChange(float change){
+        currentStamina += change;
+    }
+
+    public void ElectricityChange(float change){
+        currentElectricity += change;
+    }
+
+    public void HealthChange(float change){
+        currentHealth += change;
     }
 }
