@@ -92,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
             _knock = Vector3.MoveTowards(_knock, Vector3.zero, Time.deltaTime * 4f);
         }
 
-        if (regenPerSecond > 0f && Time.time - LastHitTime > regenDelay)
+        if (Time.time - LastHitTime > regenDelay)
             Current = Mathf.Min(maxHealth, Current + regenPerSecond * Time.deltaTime);
 
         // Heal in zones that restore health (the ship's blue circle).
