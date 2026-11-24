@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731332, g: 0.13414454, b: 0.12108202, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731305, g: 0.13414428, b: 0.12108186, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280334692}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bffc51ffeaed14d648866d89ac7a2c3f, type: 3}
   m_Name: 
@@ -910,11 +910,11 @@ MonoBehaviour:
   playerInteract: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   viewCam: {fileID: 1751225266}
   theRB: {fileID: 280334709}
-  moveSpeed: 5
   sprintSpeed: 5
   walkSpeed: 3
   mouseSensitivity: 0.1
   buffer: 0.5
+  tickRate: 0.2
   isGrounded: 0
   isSprinting: 0
 --- !u!136 &280334711
@@ -957,8 +957,10 @@ MonoBehaviour:
   currentHealth: 0
   currentStamina: 0
   maxUniversal: 100
-  sprintDrainMultiplier: 1.5
-  delay: 1.5
+  staminaDelay: 0.5
+  regenDelay: 0.75
+  chargeDelay: 1
+  oxygenDelay: 1
   healthTxt: {fileID: 853710209}
   oxygenTxt: {fileID: 1799103204}
   electricityTxt: {fileID: 1367706534}

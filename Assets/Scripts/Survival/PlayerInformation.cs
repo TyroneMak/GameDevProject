@@ -14,7 +14,16 @@ public class PlayerInformation : MonoBehaviour
     public float currentHealth;
     public float  currentStamina;
     public float maxUniversal = 100f;
-    public float sprintDrainMultiplier = 1.5f;
+
+    public float staminaDelay = 0.75f;
+    public float regenDelay = 0.75f;
+    public float chargeDelay = 1f;
+    public float oxygenDelay = 0.1f;
+    private float lastSprint;
+    private float lastRegen;
+    private bool takenDamage = false;
+    private float lastO2;
+    private float lastCharge;
 
     public Text healthTxt, oxygenTxt, electricityTxt, staminaTxt;
 
@@ -29,13 +38,17 @@ public class PlayerInformation : MonoBehaviour
         currentOxygen = maxUniversal;
         currentHealth = maxUniversal;
         currentStamina = maxUniversal;
+        lastSprint = 0f;
+        lastRegen = 0f;
+        lastO2 = 0f;
+        lastCharge = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         StaminaRegen();
-        // when sprinting stamina goes down if(isSprinting){...}
+        HealthRegen();
     }
 
     // fixed rate
@@ -46,7 +59,10 @@ public class PlayerInformation : MonoBehaviour
 
     public void HealthChange(float change){
         currentHealth += change;
-        healthTxt.text = currentHealth.ToString("F0");
+        if (change < 0){
+            takenDamage = true;
+            lastRegen = Time.time;
+        }
 
         if (currentHealth > maxUniversal){
             currentHealth = 100;
@@ -55,11 +71,12 @@ public class PlayerInformation : MonoBehaviour
             currentHealth = 0;
             // disable UI and enable death screen
         }
+
+        healthTxt.text = currentHealth.ToString("F0");
     }
 
     public void OxygenChange(float change){
         currentOxygen += change;
-        oxygenTxt.text = currentOxygen.ToString("F0");
 
         if (currentOxygen > maxUniversal){
             currentOxygen = 100;
@@ -68,23 +85,25 @@ public class PlayerInformation : MonoBehaviour
             currentOxygen = 0;
             // disable UI and enable death screen
         }
+
+        oxygenTxt.text = currentOxygen.ToString("F0");
     }
 
     public void StaminaChange(float change){
         currentStamina += change;
-        staminaTxt.text = currentStamina.ToString("F0");
 
         if (currentStamina > maxUniversal){
             currentStamina = 100;
         }
-        else if (currentStamina < 0){
+        else if (currentStamina <= 0){
             currentStamina = 0;
         }
+
+        staminaTxt.text = currentStamina.ToString("F0");
     }
 
     public void ElectricityChange(float change){
         currentElectricity += change;
-        electricityTxt.text = currentElectricity.ToString("F0");
 
         if (currentElectricity > maxUniversal){
             currentElectricity = 100;
@@ -92,11 +111,43 @@ public class PlayerInformation : MonoBehaviour
         else if (currentElectricity < 0){
             currentElectricity = 0;
         }
+
+        electricityTxt.text = currentElectricity.ToString("F0");
     }
 
     public void StaminaRegen(){
-        if (PlayerController.instance.moveSpeed == PlayerController.instance.walkSpeed){
-           // stamina regens
+        if (!PlayerController.instance.isSprinting){
+            if (lastSprint == 0f){
+               lastSprint = Time.time; 
+            }
+            if (Time.time - lastSprint > staminaDelay){
+                StaminaChange(+1);
+                lastSprint = Time.time;
+                staminaDelay = 0.1f;
+            }
+        }
+        else{
+            staminaDelay = 1f;
+            lastSprint = 0f;
+        }
+    }
+
+    public void HealthRegen(){
+        if (!takenDamage){
+            if (lastRegen == 0f){
+               lastRegen = Time.time; 
+            }
+            if (Time.time - lastRegen > regenDelay){
+                HealthChange(+1);
+                lastRegen = Time.time;
+                regenDelay = 0.25f;
+            }
+        }
+        else if (takenDamage){
+            regenDelay = 1f;
+            if (Time.time - lastRegen > regenDelay){
+                takenDamage = false;
+            }
         }
     }
 }

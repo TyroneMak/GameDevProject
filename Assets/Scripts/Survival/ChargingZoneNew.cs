@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChargingZoneNew : MonoBehaviour
 {
-    public float oxygenCharge = 2f;
-    public float electricCharge = 4f;
+    public float oxygenCharge = 1f;
+    public float electricCharge = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,9 @@ public class ChargingZoneNew : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player"){
-            PlayerInformation.instance.currentOxygen += oxygenCharge;
-            PlayerInformation.instance.currentElectricity += electricCharge;
+        if (other.tag == "Player"){ // every 0.2 of a second
+            PlayerInformation.instance.OxygenChange(oxygenCharge);
+            PlayerInformation.instance.ElectricityChange(electricCharge);
         }
     }
 }

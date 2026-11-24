@@ -20,17 +20,20 @@ public class PlayerController : MonoBehaviour
     public Camera viewCam;
     public Rigidbody theRB;
 
-    public float moveSpeed;
+    private float moveSpeed;
     public float sprintSpeed = 5f;
     public float walkSpeed = 3f;
     public float mouseSensitivity = 0.1f;
 
     public float buffer = 0.5f;
-    private float lastJump;
+    public float tickRate = 0.2f;
     public bool isGrounded;
     private bool jumpPressed;
     public bool isSprinting;
     private float absMin = 0.01f;
+
+    private float lastJump;
+    private float lastSprint;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
         isSprinting = false;
         lastJump = 0f;
+        lastSprint = 0f;
     }
 
     // Update is called once per frame
@@ -56,6 +60,12 @@ public class PlayerController : MonoBehaviour
         if (playerJump.action.WasPressedThisFrame()){
            jumpPressed = true;
         }
+
+        // for interact raycast used 
+        // if distance < reach && tag == interactable && interactable object mass < Maxlift && interact.action.waspressedthisframe
+            // player can interact
+        // else 
+            // player can only push 
     }
 
     // fixed rate (50 per sec) 
@@ -74,10 +84,14 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Sprint(){
-        if (playerSprint.action.IsPressed() && PlayerInformation.instance.currentStamina >= 0){
+        if (playerSprint.action.IsPressed() && PlayerInformation.instance.currentStamina > 0){
             moveSpeed = sprintSpeed;
             if (Math.Abs(theRB.velocity.x) > absMin || Math.Abs(theRB.velocity.z) > absMin){
                 isSprinting = true;
+                if (Time.time - lastSprint > tickRate){
+                    PlayerInformation.instance.StaminaChange(-1);
+                    lastSprint = Time.time;
+                }
             }
             else{
                 isSprinting = false;
@@ -100,7 +114,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             lastJump = Time.time;
             PlayerInformation.instance.StaminaChange(-3);
-            //PlayerInformation.instance.OxygenChange(-1);
+            PlayerInformation.instance.OxygenChange(-1);
         }
         jumpPressed = false;
     }
