@@ -16,24 +16,31 @@ public class PlayerController : MonoBehaviour
     public InputActionReference playerJump;
     public InputActionReference playerInteract;
 
-    private Vector2 mouseInput;
     public Camera viewCam;
     public Rigidbody theRB;
 
-    private float moveSpeed;
-    public float sprintSpeed = 5f;
-    public float walkSpeed = 3f;
+    private Vector2 mouseInput;
     public float mouseSensitivity = 0.1f;
+    private float moveSpeed;
+    public float walkSpeed = 3f;
+    public float sprintSpeed = 5f;
 
-    public float buffer = 0.5f;
-    public float tickRate = 0.2f;
-    public bool isGrounded;
+    public float jumpBuffer = 0.5f;
+    public float sprintTickRate = 0.2f;
+
     private bool jumpPressed;
+    public bool isGrounded;
     public bool isSprinting;
-    private float absMin = 0.01f;
+    private float absMin;
 
     private float lastJump;
     private float lastSprint;
+
+    public float jumpVelocity = 5f;
+    public float staminaSprint = -1f;
+    public float staminaJump = -3f;
+    public float oxygenJump = -1f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +48,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         isGrounded = false;
         isSprinting = false;
+        absMin = 0.01f;
         lastJump = 0f;
         lastSprint = 0f;
     }
@@ -88,8 +96,8 @@ public class PlayerController : MonoBehaviour
             moveSpeed = sprintSpeed;
             if (Math.Abs(theRB.velocity.x) > absMin || Math.Abs(theRB.velocity.z) > absMin){
                 isSprinting = true;
-                if (Time.time - lastSprint > tickRate){
-                    PlayerInformation.instance.StaminaChange(-1);
+                if (Time.time - lastSprint > sprintTickRate){
+                    PlayerInformation.instance.StaminaChange(staminaSprint);
                     lastSprint = Time.time;
                 }
             }
@@ -104,7 +112,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Jump(){
-        if (!isGrounded && Math.Abs(theRB.velocity.y) < absMin  && Time.time - lastJump > buffer){
+        if (!isGrounded && Math.Abs(theRB.velocity.y) < absMin  && Time.time - lastJump > jumpBuffer){
             isGrounded = true;
         }
         else if (isGrounded && jumpPressed){
@@ -113,8 +121,8 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = tempJump;
             isGrounded = false;
             lastJump = Time.time;
-            PlayerInformation.instance.StaminaChange(-3);
-            PlayerInformation.instance.OxygenChange(-1);
+            PlayerInformation.instance.StaminaChange(staminaJump);
+            PlayerInformation.instance.OxygenChange(oxygenJump);
         }
         jumpPressed = false;
     }

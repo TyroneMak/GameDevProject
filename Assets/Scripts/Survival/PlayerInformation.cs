@@ -69,7 +69,7 @@ public class PlayerInformation : MonoBehaviour
         }
         else if (currentHealth < 0){
             currentHealth = 0;
-            // disable UI and enable death screen
+            // disable UI, player controller, ...., and enable death screen
         }
 
         healthTxt.text = currentHealth.ToString("F0");
@@ -115,7 +115,7 @@ public class PlayerInformation : MonoBehaviour
         electricityTxt.text = currentElectricity.ToString("F0");
     }
 
-    public void StaminaRegen(){
+    private void StaminaRegen(){
         if (!PlayerController.instance.isSprinting){
             if (lastSprint == 0f){
                lastSprint = Time.time; 
@@ -132,7 +132,7 @@ public class PlayerInformation : MonoBehaviour
         }
     }
 
-    public void HealthRegen(){
+    private void HealthRegen(){
         if (!takenDamage){
             if (lastRegen == 0f){
                lastRegen = Time.time; 
