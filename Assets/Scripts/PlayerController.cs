@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private bool jumpPressed;
     public bool isGrounded;
-    public bool isSprinting;
+    public bool usedStamina;
     private float absMin;
 
     private float lastJump;
@@ -42,12 +42,16 @@ public class PlayerController : MonoBehaviour
     public float oxygenJump = -1f;
 
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         isGrounded = false;
-        isSprinting = false;
+        usedStamina = false;
         absMin = 0.01f;
         lastJump = 0f;
         lastSprint = 0f;
@@ -66,7 +70,11 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(theRB.velocity.y);
 
         if (playerJump.action.WasPressedThisFrame()){
-           jumpPressed = true;
+            jumpPressed = true;
+        }
+        
+        if (!isGrounded){
+            usedStamina = true;
         }
 
         // for interact raycast used 
@@ -95,19 +103,19 @@ public class PlayerController : MonoBehaviour
         if (playerSprint.action.IsPressed() && PlayerInformation.instance.currentStamina > 0){
             moveSpeed = sprintSpeed;
             if (Math.Abs(theRB.velocity.x) > absMin || Math.Abs(theRB.velocity.z) > absMin){
-                isSprinting = true;
+                usedStamina = true;
                 if (Time.time - lastSprint > sprintTickRate){
                     PlayerInformation.instance.StaminaChange(staminaSprint);
                     lastSprint = Time.time;
                 }
             }
             else{
-                isSprinting = false;
+                usedStamina = false;
             }
         }
         else{
             moveSpeed = walkSpeed;
-            isSprinting = false;
+            usedStamina = false;
         }
     }
 

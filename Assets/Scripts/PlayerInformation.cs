@@ -19,7 +19,7 @@ public class PlayerInformation : MonoBehaviour
     public float regenDelay = 0.75f;
     public float chargeDelay = 1f;
     public float oxygenDelay = 2.5f;
-    private float lastSprint;
+    private float lastStamina;
     private float lastRegen;
     private bool takenDamage = false;
     private float lastO2;
@@ -40,7 +40,7 @@ public class PlayerInformation : MonoBehaviour
         currentOxygen = maxUniversal;
         currentHealth = maxUniversal;
         currentStamina = maxUniversal;
-        lastSprint = 0f;
+        lastStamina = 0f;
         lastRegen = 0f;
         lastO2 = Time.time;
         lastCharge = 0f;
@@ -121,19 +121,19 @@ public class PlayerInformation : MonoBehaviour
     }
 
     private void StaminaRegen(){
-        if (!PlayerController.instance.isSprinting){
-            if (lastSprint == 0f){
-               lastSprint = Time.time; 
+        if (!PlayerController.instance.usedStamina){
+            if (lastStamina == 0f){
+               lastStamina = Time.time; 
             }
-            if (Time.time - lastSprint > staminaDelay){
+            if (Time.time - lastStamina > staminaDelay){
                 StaminaChange(+1);
-                lastSprint = Time.time;
+                lastStamina = Time.time;
                 staminaDelay = 0.1f;
             }
         }
         else{
             staminaDelay = 1f;
-            lastSprint = 0f;
+            lastStamina = 0f;
         }
     }
 
