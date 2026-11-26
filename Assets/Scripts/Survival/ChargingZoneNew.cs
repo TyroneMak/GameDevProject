@@ -23,6 +23,16 @@ public class ChargingZoneNew : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        PlayerInformation.instance.inZone = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        PlayerInformation.instance.inZone = false;
+    }
+
+    void OnTriggerStay(Collider other)
+    {
         if (other.tag == "Player" && Time.time - tickStart > chargeSpeed){ // every 0.2 of a second
             PlayerInformation.instance.OxygenChange(oxygenCharge);
             PlayerInformation.instance.ElectricityChange(electricCharge);

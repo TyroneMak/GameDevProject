@@ -18,12 +18,14 @@ public class PlayerInformation : MonoBehaviour
     public float staminaDelay = 0.75f;
     public float regenDelay = 0.75f;
     public float chargeDelay = 1f;
-    public float oxygenDelay = 0.1f;
+    public float oxygenDelay = 2.5f;
     private float lastSprint;
     private float lastRegen;
     private bool takenDamage = false;
     private float lastO2;
     private float lastCharge;
+
+    public bool inZone = false;
 
     public Text healthTxt, oxygenTxt, electricityTxt, staminaTxt;
 
@@ -40,7 +42,7 @@ public class PlayerInformation : MonoBehaviour
         currentStamina = maxUniversal;
         lastSprint = 0f;
         lastRegen = 0f;
-        lastO2 = 0f;
+        lastO2 = Time.time;
         lastCharge = 0f;
     }
 
@@ -49,6 +51,9 @@ public class PlayerInformation : MonoBehaviour
     {
         StaminaRegen();
         HealthRegen();
+        if (!inZone){
+            OxygenDecrease();
+        }
     }
 
     // fixed rate
@@ -148,6 +153,13 @@ public class PlayerInformation : MonoBehaviour
             if (Time.time - lastRegen > regenDelay){
                 takenDamage = false;
             }
+        }
+    }
+
+    private void OxygenDecrease(){
+        if (Time.time - lastO2 > oxygenDelay && !inZone){
+            OxygenChange(-1);
+            lastO2 = Time.time;
         }
     }
 }
