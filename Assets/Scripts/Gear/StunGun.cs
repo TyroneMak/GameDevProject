@@ -8,42 +8,33 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class StunGun : MonoBehaviour
 {
-    [Header("Setup")]
     public Camera viewCam;
-    [Tooltip("Inventory item id that must be equipped for the gun to work.")]
-    public string itemId = "stungun";
-
-    [Header("Input")]
     public InputActionReference fireAction;
-    bool _enabledAction;
 
-    [Header("Shooting")]
+    private bool GunEquipped;
+    private float  shotTime;
     public float range = 50f;
-    [Tooltip("Minimum seconds between shots.")]
     public float cooldown = 0.2f;
-    [Tooltip("Energy spent per shot.")]
     public float energyPerShot = 10f;
-
-    Inventory _inv;
-    ElectricitySystem _power;
-    float _nextShotTime;
 
     void Awake()
     {
-        _inv = GetComponentInParent<Inventory>();
-        _power = GetComponentInParent<ElectricitySystem>();
-        if (viewCam == null) viewCam = Camera.main;
+        
     }
 
-    bool GunEquipped => _inv == null || (_inv.Equipped != null && _inv.Equipped.id == itemId);
+    void Start()
+    {
+        
+    }
 
     void Update()
     {
         if (viewCam == null || !GunEquipped) return;
 
-        if (fireAction.action.WasPressedThisFrame() && Time.time >= _nextShotTime){
-            if (_power != null && !_power.TryUse(energyPerShot)) return; // energy
-            Shoot();
+        if (fireAction.action.WasPressedThisFrame() && Time.time - shotTime > cooldown){
+            if (PlayerInformation.instance.currentEnergy >= energyPerShot){
+                Shoot();
+            }
         }
     }
 
@@ -55,12 +46,13 @@ public class StunGun : MonoBehaviour
             if (hit.transform.tag == "Enemy" || hit.transform.tag == "Ground")
             {
                 hit.transform.GetComponent<MonsterFunctions>().StunEffect();
-                Debug.Log("Enemy/Ground stunned");
+                Debug.Log("Enemy stunned");
             }
             else{
                 Debug.Log("Looking at nothing");
             }
         }
-        _nextShotTime = Time.time + cooldown;
+        PlayerInformation.instance.EnergyChange(-energyPerShot);
+        shotTime = Time.time;
     }
 }

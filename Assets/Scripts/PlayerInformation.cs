@@ -10,7 +10,7 @@ public class PlayerInformation : MonoBehaviour
     public static PlayerInformation instance;
 
     public float currentOxygen;
-    public float currentElectricity;
+    public float currentEnergy;
     public float currentHealth;
     public float  currentStamina;
     public float maxUniversal = 100f;
@@ -36,7 +36,7 @@ public class PlayerInformation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentElectricity = maxUniversal;
+        currentEnergy = maxUniversal;
         currentOxygen = maxUniversal;
         currentHealth = maxUniversal;
         currentStamina = maxUniversal;
@@ -107,17 +107,22 @@ public class PlayerInformation : MonoBehaviour
         staminaTxt.text = currentStamina.ToString("F0");
     }
 
-    public void ElectricityChange(float change){
-        currentElectricity += change;
-
-        if (currentElectricity > maxUniversal){
-            currentElectricity = 100;
-        }
-        else if (currentElectricity < 0){
-            currentElectricity = 0;
+    public void EnergyChange(float change){
+        if (change > currentEnergy){
+            Debug.Log("! not enough energy");
+            return;
         }
 
-        electricityTxt.text = currentElectricity.ToString("F0");
+        currentEnergy += change;
+
+        if (currentEnergy > maxUniversal){
+            currentEnergy = 100;
+        }
+        else if (currentEnergy < 0){
+            currentEnergy = 0;
+        }
+
+        electricityTxt.text = currentEnergy.ToString("F0");
     }
 
     private void StaminaRegen(){

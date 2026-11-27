@@ -35,7 +35,7 @@ public class ChargingZoneNew : MonoBehaviour
     {
         if (other.tag == "Player" && Time.time - tickStart > chargeSpeed){ // every 0.2 of a second
             PlayerInformation.instance.OxygenChange(oxygenCharge);
-            PlayerInformation.instance.ElectricityChange(electricCharge);
+            PlayerInformation.instance.EnergyChange(electricCharge);
             tickStart = Time.time;
         }
     }
