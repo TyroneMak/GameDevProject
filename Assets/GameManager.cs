@@ -14,13 +14,12 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        LockCursor();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        LockCursor();
     }
 
     // Update is called once per frame
