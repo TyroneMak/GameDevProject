@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class StunGun : MonoBehaviour
 {
+    private PlayerInformation playerinfo;
+
     public Camera viewCam;
     public InputActionReference fireAction;
 
@@ -24,7 +26,7 @@ public class StunGun : MonoBehaviour
 
     void Start()
     {
-        
+        playerinfo = PlayerInformation.instance;
     }
 
     void Update()
@@ -32,7 +34,7 @@ public class StunGun : MonoBehaviour
         if (viewCam == null || !GunEquipped) return;
 
         if (fireAction.action.WasPressedThisFrame() && Time.time - shotTime > cooldown){
-            if (PlayerInformation.instance.currentEnergy >= energyPerShot){
+            if (playerinfo.currentEnergy >= energyPerShot){
                 Shoot();
             }
         }
@@ -43,7 +45,7 @@ public class StunGun : MonoBehaviour
         Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit)){
-            if (hit.transform.tag == "Enemy" || hit.transform.tag == "Ground")
+            if ((hit.transform.tag == "Enemy" || hit.transform.tag == "Ground") && hit.distance <= range)
             {
                 hit.transform.GetComponent<MonsterFunctions>().StunEffect();
                 Debug.Log("Enemy stunned");
@@ -51,8 +53,13 @@ public class StunGun : MonoBehaviour
             else{
                 Debug.Log("Looking at nothing");
             }
+
+            // instantiates a blue ray 
+                // Instantiate(ray, ...)
+            // if nothings hit it just goes max distance where player facing
+            // else it stops where it hits
         }
-        PlayerInformation.instance.EnergyChange(-energyPerShot);
+        playerinfo.EnergyChange(-energyPerShot);
         shotTime = Time.time;
     }
 }

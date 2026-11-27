@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
+    private PlayerInformation playerinfo;
 
     public InputActionReference playerMove;
     public InputActionReference playerLook;
@@ -25,8 +27,8 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed = 3f;
     public float sprintSpeed = 5f;
 
-    public float jumpBuffer = 0.5f;
-    public float sprintTickRate = 0.2f;
+    public float range = 1f;
+    public float maxMass = 0.15f;
 
     private bool jumpPressed;
     public bool isGrounded;
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private float lastJump;
     private float lastSprint;
+    public float jumpBuffer = 0.5f;
+    public float sprintTickRate = 0.2f;
 
     public float jumpVelocity = 5f;
     public float staminaSprint = -1f;
@@ -55,6 +59,8 @@ public class PlayerController : MonoBehaviour
         absMin = 0.01f;
         lastJump = 0f;
         lastSprint = 0f;
+        maxMass *= theRB.mass; 
+        playerinfo = PlayerInformation.instance;
     }
 
     // Update is called once per frame
@@ -82,6 +88,9 @@ public class PlayerController : MonoBehaviour
             // player can interact
         // else 
             // player can only push 
+        if (playerInteract.action.WasPressedThisFrame()){
+            interact(); // if object mass > x player can push and pull but cant lift (need gear???)
+        }
     }
 
     // fixed rate (50 per sec) 
@@ -100,12 +109,12 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Sprint(){
-        if (playerSprint.action.IsPressed() && PlayerInformation.instance.currentStamina > 0){
+        if (playerSprint.action.IsPressed() && playerinfo.currentStamina > 0){
             moveSpeed = sprintSpeed;
             if (Math.Abs(theRB.velocity.x) > absMin || Math.Abs(theRB.velocity.z) > absMin){
                 usedStamina = true;
                 if (Time.time - lastSprint > sprintTickRate){
-                    PlayerInformation.instance.StaminaChange(staminaSprint);
+                    playerinfo.StaminaChange(staminaSprint);
                     lastSprint = Time.time;
                 }
             }
@@ -129,9 +138,25 @@ public class PlayerController : MonoBehaviour
             theRB.velocity = tempJump;
             isGrounded = false;
             lastJump = Time.time;
-            PlayerInformation.instance.StaminaChange(staminaJump);
-            PlayerInformation.instance.OxygenChange(oxygenJump);
+            playerinfo.StaminaChange(staminaJump);
+            playerinfo.OxygenChange(oxygenJump);
         }
         jumpPressed = false;
+    }
+
+    private void interact(){
+        Ray ray = viewCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit)){
+            if (hit.transform.tag == "looseObject" && hit.distance < range){
+                if (hit.transform.GetComponent<Rigidbody>().mass < maxMass){
+                    
+                }
+                else{
+                    
+                }
+                // pulls obj infront of player to the right
+            }
+        }
     }
 }

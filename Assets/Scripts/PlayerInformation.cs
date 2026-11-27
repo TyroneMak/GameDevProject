@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerInformation : MonoBehaviour
 {
     public static PlayerInformation instance;
+    private PlayerController playerControl;
 
     public float currentOxygen;
     public float currentEnergy;
@@ -44,6 +45,7 @@ public class PlayerInformation : MonoBehaviour
         lastRegen = 0f;
         lastO2 = Time.time;
         lastCharge = 0f;
+        playerControl = PlayerController.instance;
     }
 
     // Update is called once per frame
@@ -126,7 +128,7 @@ public class PlayerInformation : MonoBehaviour
     }
 
     private void StaminaRegen(){
-        if (!PlayerController.instance.usedStamina){
+        if (!playerControl.usedStamina){
             if (lastStamina == 0f){
                lastStamina = Time.time; 
             }
@@ -166,5 +168,11 @@ public class PlayerInformation : MonoBehaviour
             OxygenChange(-1);
             lastO2 = Time.time;
         }
+    }
+
+    public void Inventory(){
+        // switch case 
+        // 3 slots
+        // have a variable for each slot
     }
 }
